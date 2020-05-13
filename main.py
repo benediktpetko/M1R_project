@@ -24,7 +24,7 @@ class gambler(object):
 
         # generate random walk with step size being the bet of the game
         outcomes = self.history[-1] + np.cumsum(g.bet * ( (-1) ** (1+b) ) )
-
+        outcomes = outcomes.clip(min=0)
         # add the outcomes to gambler's history
         self.history = np.append(self.history, outcomes) 
 
@@ -37,9 +37,9 @@ class gambler(object):
 #%%
 if __name__=="__main__":
     np.random.seed(0)
-    g = game(edge=+0.05, bet =1)
-    for i in range(20):
+    g = game(edge=-0.05, bet =1)
+    for i in range(1000):
         benedikt = gambler(100)
-        benedikt.play(g, 500)
+        benedikt.play(g, 1000)
         benedikt.plot_history()
     plt.show()
