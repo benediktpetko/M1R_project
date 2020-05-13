@@ -6,7 +6,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+
 #%%
+class game(object):
+    def __init__(self, edge = -0.05, bet = 1):
+        self.edge = edge
+        self.bet = bet
+
 class gambler(object):
 
     def __init__(self, funds):
@@ -21,19 +27,19 @@ class gambler(object):
 
         # add the outcomes to gambler's history
         self.history = np.append(self.history, outcomes) 
-    def plot_history(self):
-        sns.lineplot(self.history)
-        plt.show()
 
-class game(object):
-    def __init__(self, edge = -0.05, bet = 1):
-        self.edge = edge
-        self.bet = bet
+    def plot_history(self):
+        sns.lineplot(x= range(len(self.history)), y=self.history)
+
+
+
 
 #%%
 if __name__=="__main__":
     np.random.seed(0)
-    benedikt = gambler(100)
-    g = game(edge=-0.05, bet =1)
-    benedikt.play(10, g)
-    benedikt.plot_history()
+    g = game(edge=+0.05, bet =1)
+    for i in range(20):
+        benedikt = gambler(100)
+        benedikt.play(g, 500)
+        benedikt.plot_history()
+    plt.show()
